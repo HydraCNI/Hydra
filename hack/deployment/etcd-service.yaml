@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-etcd
+  namespace: kube-system
+spec:
+  selector:
+    component: etcd
+    tier: control-plane
+  ports:
+    - name: http
+      port: 2379
+      targetPort: 2379
+  type: ClusterIP
+  clusterIP: None
+

@@ -1,0 +1,26 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo
+  namespace: kube-flannel
+spec:
+  containers:
+    - name: set-cluster-cidr
+      args:
+        - infinity
+      command:
+        - sleep
+      image: docker.io/bitnami/etcd:latest
+      volumeMounts:
+        - mountPath: /etc/kube-flannel/
+          name: flannel-cfg
+        - mountPath: /etc/kubernetes/pki/etcd/
+          name: flannel-cert
+  volumes:
+    - configMap:
+        name: kube-flannel-etcd-cert-dedicated
+      name: flannel-cert
+    - configMap:
+        name: kube-flannel-cfg-dedicated
+      name: flannel-cfg

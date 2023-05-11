@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-3
+spec:
+  # nodeSelector:
+  #   kubernetes.io/hostname: child-1-node-1
+  containers:
+    - name: nginx
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
+    - name: busybox
+      command: [ "/bin/ash", "-c", "trap : TERM INT; sleep infinity & wait" ]
+      image: busybox
+    - name: alpine
+      command: [ "sleep","infinity" ]
+      image: alpine/curl
+
+
+
+# 10.32.0.1 - 10.47.255.254

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  annotations:
+    k8s.v1.cni.cncf.io/networks: macvlan-conf
+spec:
+  #  nodeSelector:
+  # kubernetes.io/hostname: parent-node-1
+  containers:
+    - name: nginx
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
+    - name: busybox
+      command: [ "/bin/ash", "-c", "trap : TERM INT; sleep infinity & wait" ]
+      image: busybox
+    - name: alpine
+      command: [ "sleep","infinity" ]
+      image: alpine/curl
+
+
+

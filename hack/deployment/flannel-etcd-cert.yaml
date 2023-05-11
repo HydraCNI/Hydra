@@ -1,0 +1,19 @@
+apiVersion: v1
+data:
+  server.key: |
+    ""
+  server.crt: |
+    ""
+  ca.crt: |
+    ""
+  resolv.conf: |
+    search default.svc.cluster.local svc.cluster.local cluster.local 
+    nameserver 10.96.0.10
+kind: ConfigMap
+metadata:
+  labels:
+    app: flannel
+    k8s-app: flannel
+    tier: node
+  name: kube-flannel-etcd-cert-dedicated
+  namespace: kube-flannel

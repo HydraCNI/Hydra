@@ -1,0 +1,137 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    k8s-app: dedicated-cni
+    pod-security.kubernetes.io/enforce: privileged
+  name: dedicated-cni
+---
+apiVersion: v1
+data:
+  cni-conf.json: |
+    {
+      "name": "dedicated",
+      "cniVersion": "0.3.1",
+      "plugins": [
+        {
+          "type": "flannel",
+          "delegate": {
+            "type": "bridge",
+            "bridge": "dedicated.0",
+            "hairpinMode": true,
+            "isDefaultGateway": true
+          }
+        },
+        {
+          "type": "portmap",
+          "capabilities": {
+            "portMappings": true
+          }
+        }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  name: dedicated-cni-cfg
+  namespace: dedicated-cni
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: nri-cni
+  name: nri-cni
+  namespace: dedicated-cni
+spec:
+  selector:
+    matchLabels:
+      app: nri-cni
+  template:
+    metadata:
+      labels:
+        app: nri-cni
+    spec:
+      hostNetwork: true
+      initContainers:
+        - name: dedicated-cni-init
+          image: 'busybox:latest'
+          imagePullPolicy: IfNotPresent
+          command:
+            - cp
+          args:
+            - -f
+            - /etc/dedicated-cni/cni-conf.json
+            - /etc/cni/net.d/99-dedicated.conflist
+          volumeMounts:
+            - mountPath: /etc/cni/net.d
+              name: cniconf
+            - mountPath: /etc/dedicated-cni
+              name: dedicated-cni-cfg
+      containers:
+        - name: nri-cni
+          command:
+            - "/nri-cni-plugin"
+          args:
+            - "-idx"
+            - "01"
+            - "-cni-conf"
+            - "dedicated"
+            - "-events"
+            - "runpodsandbox,stoppodsandbox,removepodsandbox"
+          env:
+            - name: CNI_PATH
+              value: /opt/cni/bin
+            - name: CNI_IFNAME
+              value: eth99
+          image: docker.io/airren/nri-cni-plugin:latest
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: cnipath
+              mountPath: /opt/cni/bin
+            - name: cniconf
+              mountPath: /etc/cni/net.d
+            - name: netns
+              mountPath: /var/run/netns
+              mountPropagation: Bidirectional
+            - name: nrisock
+              mountPath: /var/run/nri/nri.sock
+            - name: flannel
+              mountPath: /run/flannel
+            - mountPath: /run/xtables.lock
+              name: xtables-lock
+      volumes:
+        - name: cnipath
+          hostPath:
+            path: /opt/cni/bin
+            type: Directory
+        - name: cniconf
+          hostPath:
+            path: /etc/cni/net.d
+            type: Directory
+        - name: netns
+          hostPath:
+            path: /var/run/netns
+            type: Directory
+        - name: nrisock
+          hostPath:
+            path: /var/run/nri/nri.sock
+            type: Socket
+        - configMap:
+            name: dedicated-cni-cfg
+          name: dedicated-cni-cfg
+        - name: flannel
+          hostPath:
+            path: /run/flannel/hydra-cni
+            type: DirectoryOrCreate
+        - hostPath:
+            path: /run/xtables.lock
+            type: FileOrCreate
+          name: xtables-lock

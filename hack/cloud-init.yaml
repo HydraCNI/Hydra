@@ -1,0 +1,5 @@
+runcmd:
+  - sudo snap set system proxy.https="http://proxy-prc.intel.com:913"
+  - sudo snap set system proxy.http="http://proxy-prc.intel.com:913"
+  - sudo snap install multipass-sshfs  --classic
+  - sudo snap install jq  --classic
