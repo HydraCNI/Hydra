@@ -68,7 +68,7 @@ apiVersion: v1
 data:
   cni-conf.json: |
     {
-      "name": "dedicated-0.1",
+      "name": "hydra-0.1",
       "cniVersion": "0.3.1",
       "plugins": [
         {
@@ -100,7 +100,7 @@ metadata:
     app: flannel
     k8s-app: flannel
     tier: node
-  name: kube-flannel-cfg-dedicated
+  name: kube-flannel-cfg-hydra
   namespace: kube-flannel
 ---
 apiVersion: apps/v1
@@ -110,18 +110,18 @@ metadata:
     app: flannel
     k8s-app: flannel
     tier: node
-  name: kube-flannel-ds-dedicated
+  name: kube-flannel-ds-hydra
   namespace: kube-flannel
 spec:
   selector:
     matchLabels:
-      app: flannel-dedicated
-      k8s-app: flannel-dedicated
+      app: flannel-hydra
+      k8s-app: flannel-hydra
   template:
     metadata:
       labels:
-        app: flannel-dedicated
-        k8s-app: flannel-dedicated
+        app: flannel-hydra
+        k8s-app: flannel-hydra
         tier: node
     spec:
       affinity:
@@ -134,8 +134,7 @@ spec:
                 values:
                 - linux
       containers:
-      - args:
-        command:
+      - command:
         - /bin/bash
         - -c
         - " /opt/bin/flanneld --ip-masq 
@@ -180,7 +179,13 @@ spec:
       hostNetwork: true
       initContainers:
       - name: busybox
-        command: [ "/bin/sh", "-c", "cat /etc/kubernetes/pki/etcd/resolv.conf | tee /etc/resolv.conf ;ip= ;while [ -z $ip ];do ip=$(nslookup kube-etcd.kube-system.svc.cluster.local|awk -F': '  'NR==6 { print $2 } ');done;echo $ip |tee /run/flannel/hydra-cni/etcd.ip"]
+        command:
+        - /bin/sh
+        - -c
+        - "cat /etc/kubernetes/pki/etcd/resolv.conf | tee /etc/resolv.conf ;
+        ip= ;while [ -z $ip ];
+        do ip=$(nslookup kube-etcd.kube-system.svc.cluster.local|awk -F': '  'NR==6 { print $2 } ');done;
+        echo $ip |tee /run/flannel/hydra-cni/etcd.ip"
         image: busybox
         volumeMounts:
           - mountPath: /run/flannel/hydra-cni
@@ -198,7 +203,14 @@ spec:
         volumeMounts:
         - mountPath: /opt/cni/bin
           name: cni-plugin
-      - command: [ "/bin/bash","-c","cat /etc/kube-flannel/net-conf.json | etcdctl --endpoints=https://$(cat /run/hydra-cni/flannel/etcd.ip):2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key put /hydra-cni/network/config "]
+      - command:
+        - /bin/bash
+        - -c
+        - "cat /etc/kube-flannel/net-conf.json | etcdctl 
+        --endpoints=https://$(cat /run/flannel/hydra-cni/etcd.ip):2379 
+        --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt 
+        --key=/etc/kubernetes/pki/etcd/server.key 
+        put /hydra-cni/network/config "
         image: docker.io/bitnami/etcd:latest
         name: set-cluster-cidr
         volumeMounts:
@@ -224,10 +236,10 @@ spec:
           path: /etc/cni/net.d
         name: cni
       - configMap:
-          name: kube-flannel-cfg-dedicated
+          name: kube-flannel-cfg-hydra
         name: flannel-cfg
       - configMap:
-          name: kube-flannel-etcd-cert-dedicated
+          name: kube-flannel-etcd-cert-hydra
         name: flannel-cert
       - hostPath:
           path: /run/xtables.lock

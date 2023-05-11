@@ -3,22 +3,22 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    k8s-app: dedicated-cni
+    k8s-app: hydra-cni
     pod-security.kubernetes.io/enforce: privileged
-  name: dedicated-cni
+  name: hydra-cni
 ---
 apiVersion: v1
 data:
   cni-conf.json: |
     {
-      "name": "dedicated",
+      "name": "hydra",
       "cniVersion": "0.3.1",
       "plugins": [
         {
           "type": "flannel",
           "delegate": {
             "type": "bridge",
-            "bridge": "dedicated.0",
+            "bridge": "hydra.0",
             "hairpinMode": true,
             "isDefaultGateway": true
           }
@@ -33,51 +33,51 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: dedicated-cni-cfg
-  namespace: dedicated-cni
+  name: hydra-cni-cfg
+  namespace: hydra-cni
 
 ---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
-    app: nri-cni
-  name: nri-cni
-  namespace: dedicated-cni
+    app: hydra-cni
+  name: hydra-cni-ds
+  namespace: hydra-cni
 spec:
   selector:
     matchLabels:
-      app: nri-cni
+      app: hydra-cni
   template:
     metadata:
       labels:
-        app: nri-cni
+        app: hydra-cni
     spec:
       hostNetwork: true
       initContainers:
-        - name: dedicated-cni-init
+        - name: hydra-cni-init
           image: 'busybox:latest'
           imagePullPolicy: IfNotPresent
           command:
             - cp
           args:
             - -f
-            - /etc/dedicated-cni/cni-conf.json
-            - /etc/cni/net.d/99-dedicated.conflist
+            - /etc/hydra-cni/cni-conf.json
+            - /etc/cni/net.d/99-hydra.conflist
           volumeMounts:
             - mountPath: /etc/cni/net.d
               name: cniconf
-            - mountPath: /etc/dedicated-cni
-              name: dedicated-cni-cfg
+            - mountPath: /etc/hydra-cni
+              name: hydra-cni-cfg
       containers:
-        - name: nri-cni
+        - name: hydra-cni
           command:
-            - "/nri-cni-plugin"
+            - "/hydra-cni"
           args:
             - "-idx"
             - "01"
             - "-cni-conf"
-            - "dedicated"
+            - "hydra"
             - "-events"
             - "runpodsandbox,stoppodsandbox,removepodsandbox"
           env:
@@ -85,7 +85,7 @@ spec:
               value: /opt/cni/bin
             - name: CNI_IFNAME
               value: eth99
-          image: docker.io/airren/nri-cni-plugin:latest
+          image: docker.io/airren/hydra-cni:latest
           imagePullPolicy: Always
           securityContext:
             privileged: true
@@ -125,8 +125,8 @@ spec:
             path: /var/run/nri/nri.sock
             type: Socket
         - configMap:
-            name: dedicated-cni-cfg
-          name: dedicated-cni-cfg
+            name: hydra-cni-cfg
+          name: hydra-cni-cfg
         - name: flannel
           hostPath:
             path: /run/flannel/hydra-cni

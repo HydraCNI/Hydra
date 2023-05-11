@@ -15,5 +15,5 @@ metadata:
     app: flannel
     k8s-app: flannel
     tier: node
-  name: kube-flannel-etcd-cert-dedicated
+  name: kube-flannel-etcd-cert-hydra
   namespace: kube-flannel

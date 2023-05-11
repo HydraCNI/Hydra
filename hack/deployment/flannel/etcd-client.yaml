@@ -1,3 +1,4 @@
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -18,8 +19,8 @@ spec:
           name: flannel-cert
   volumes:
     - configMap:
-        name: kube-flannel-etcd-cert-dedicated
+        name: kube-flannel-etcd-cert-hydra
       name: flannel-cert
     - configMap:
-        name: kube-flannel-cfg-dedicated
+        name: kube-flannel-cfg-hydra
       name: flannel-cfg
