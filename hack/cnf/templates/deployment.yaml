@@ -74,8 +74,8 @@ spec:
 #         - mountPath: /tmp/sdewan/account
 #           name: account
 #           readOnly: true
-      nodeSelector:
-        node-role.kubernetes.io/master: "{{ .Values.nodeSelector }}"
+      # nodeSelector:
+      #   node-role.kubernetes.io/master: "{{ .Values.nodeSelector }}"
       restartPolicy: {{ .Values.restartPolicy }}
       volumes:
       - configMap:

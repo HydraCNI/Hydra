@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hack/cnf/Chart.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hack/cnf/templates/_helpers.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hack/cnf/templates/cm.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hack/cnf/templates/deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hack/cnf/templates/secret.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hack/cnf/values.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hack/cnf/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hack/cnf/templates/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hack/cnf/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hack/cnf/values.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -29,23 +29,12 @@ spec:
 strategy:
   maxSurge: 25%
   maxUnavailable: 25%
-nfn:
-  - defaultGateway: false
-    interface: net2
-    ipAddress: "10.10.70.29"
-    name: pnetwork
-    separate: ","
-  - defaultGateway: false
-    interface: net0
-    ipAddress: 172.16.70.29
-    name: ovn-network
-    separate: ""
 containers:
   image: integratedcloudnative/sdewan-cnf:0.5.2-1
   imagePullPolicy: IfNotPresent
   name: sdewan
 nodeSelector: ""
-publicIpAddress: "192.168.0.2"
-defaultCIDR: "10.233.64.0/18"
-providerCIDR: "10.10.70.0/24"
+# publicIpAddress: "192.168.0.2"
+# defaultCIDR: "10.233.64.0/18"
+# providerCIDR: "10.10.70.0/24"
 restartPolicy: Always
