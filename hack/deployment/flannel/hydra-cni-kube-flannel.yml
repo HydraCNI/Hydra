@@ -68,12 +68,14 @@ apiVersion: v1
 data:
   cni-conf.json: |
     {
-      "name": "hydra-0.1",
+      "name": "hydra",
       "cniVersion": "0.3.1",
       "plugins": [
         {
           "type": "flannel",
           "delegate": {
+            "type": "bridge",
+            "bridge": "hydra.0",
             "hairpinMode": true,
             "isDefaultGateway": true
           }
