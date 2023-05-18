@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cnf-1
+spec:
+  hostNetwork: true
+  containers:
+  - name: cnf
+    image: integratedcloudnative/sdewan-cnf:0.5.3
+    imagePullPolicy: IfNotPresent
+    workingDir: "/"
+    ports:
+    - containerPort: 8081
+    command: ["sleep","infinity"]
+    securityContext:
+      privileged: true
+  nodeSelector:
+    # change to the specific node
+    # kubernetes.io/hostname: node
