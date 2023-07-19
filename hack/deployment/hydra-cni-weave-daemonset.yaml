@@ -11,23 +11,18 @@ apiVersion: v1
 data:
   cni-conf.json: |
     {
+      "cniVersion": "0.3.0",
       "name": "hydra",
-      "cniVersion": "0.3.1",
       "plugins": [
         {
-          "type": "flannel",
-          "delegate": {
-            "type": "bridge",
-            "bridge": "hydra.0",
-            "hairpinMode": true,
-            "isDefaultGateway": true
-          }
+          "name": "weave-hydra",
+          "type": "weave-net",
+          "hairpinMode": true
         },
         {
           "type": "portmap",
-          "capabilities": {
-            "portMappings": true
-          }
+          "capabilities": {"portMappings": true},
+          "snat": true
         }
       ]
     }
@@ -127,10 +122,10 @@ spec:
         - configMap:
             name: hydra-cni-cfg
           name: hydra-cni-cfg
-#        - name: flannel
-#          hostPath:
-#            path: /run/flannel/hydra-cni
-#            type: DirectoryOrCreate
+        - name: flannel
+          hostPath:
+            path: /run/flannel/hydra-cni
+            type: DirectoryOrCreate
         - hostPath:
             path: /run/xtables.lock
             type: FileOrCreate

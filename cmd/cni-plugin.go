@@ -52,7 +52,7 @@ func main() {
 	flag.StringVar(&pluginName, "name", "cni", "plugin name to register to NRI")
 	flag.StringVar(&pluginIdx, "idx", "00", "plugin index to register to NRI")
 	flag.StringVar(&events, "events", "runpodsandbox,stoppodsandbox,removepodsandbox", "comma-separated list of events to subscribe for")
-	flag.StringVar(&cniConf, "cni-conf", "dedicate", "cni_config name")
+	flag.StringVar(&cniConf, "cni-conf", "hydra", "cni_config name")
 	flag.Parse()
 
 	if cniConf == "" {

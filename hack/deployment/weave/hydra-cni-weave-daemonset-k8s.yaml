@@ -4,20 +4,20 @@ items:
   - apiVersion: apps/v1
     kind: DaemonSet
     metadata:
-      name: weave-net
+      name: hydra-weave-net
       labels:
-        name: weave-net
+        name:  hydra-weave-net
       namespace: kube-system
     spec:
       # Wait 5 seconds to let pod connect before rolling next pod
       selector:
         matchLabels:
-          name: weave-net
+          name:  hydra-weave-net
       minReadySeconds: 5
       template:
         metadata:
           labels:
-            name: weave-net
+            name:  hydra-weave-net
         spec:
           initContainers:
             - name: weave-init
@@ -45,8 +45,14 @@ items:
               command:
                 - /home/weave/launch.sh
               env:
+                - name: "HTTP_ADDR"
+                  value: "127.0.0.1:6785"
+                - name: "METRICS_ADDR"
+                  value: "0.0.0.0:6783"
+                - name: "DB_PREFIX"
+                  value: "/weavedb/hydra-weave-net"
                 - name: "IPALLOC_RANGE"
-                  value: "10.32.0.0/12"
+                  value: "11.32.0.0/12"
                 - name: INIT_CONTAINER
                   value: "true"
                 - name: HOSTNAME
@@ -60,7 +66,7 @@ items:
                 httpGet:
                   host: 127.0.0.1
                   path: /status
-                  port: 6784
+                  port: 6785
               resources:
                 requests:
                   cpu: 50m
