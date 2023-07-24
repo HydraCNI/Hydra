@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: add cert for ipsec trans NAT">
-      <change afterPath="$PROJECT_DIR$/doc/kubecon.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hack/deployment/hydra-cni-weave-daemonset.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/cni-plugin.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/cni-plugin.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hack/deployment/hydra-cni-daemonset.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hack/deployment/hydra-cni-daemonset.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hack/deployment/weave/hydra-cni-weave-daemonset-k8s.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hack/deployment/weave/hydra-cni-weave-daemonset-k8s.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hack/setup_k8s.sh" beforeDir="false" afterPath="$PROJECT_DIR$/hack/setup_k8s.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +24,7 @@
   <component name="GOROOT" url="file:///opt/homebrew/Cellar/go/1.20.4/libexec" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="KubernetesApiPersistence">
     <option name="context" value="kubernetes-admin@kubernetes" />

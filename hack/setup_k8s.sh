@@ -166,11 +166,11 @@ function kube_install() {
   if [ $proxy_flag == 'on' ]; then
     sudo curl -x ${http_proxy} \
       -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg \
-      https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      http://echo-bio.cn:8888/kubernetes-archive-keyring.gpg
 
   else
     sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg \
-      https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    http://echo-bio.cn:8888/kubernetes-archive-keyring.gpg
   fi
 
   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] \
