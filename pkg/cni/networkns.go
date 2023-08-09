@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/containernetworking/cni/libcni"
+	"github.com/containernetworking/cni/pkg/types"
 )
 
 // Protocol parameters are passed to the plugins via OS environment variables.
@@ -49,18 +50,18 @@ type CNIPlugin struct {
 
 var DefaultCNIPlugin CNIPlugin
 
-func (c *CNIPlugin) AddNetworkInterface(nsPath string) error {
+func (c *CNIPlugin) AddNetworkInterface(nsPath string) (result types.Result, err error) {
 	return c.NetworkInterfaceOpt(nsPath, CmdAdd)
 }
-func (c *CNIPlugin) DelNetworkInterface(nsPath string) error {
+func (c *CNIPlugin) DelNetworkInterface(nsPath string) (result types.Result, err error) {
 	return c.NetworkInterfaceOpt(nsPath, CmdDel)
 
 }
-func (c *CNIPlugin) CheckNetworkInterface(nsPath string) error {
+func (c *CNIPlugin) CheckNetworkInterface(nsPath string) (result types.Result, err error) {
 	return c.NetworkInterfaceOpt(nsPath, CmdCheck)
 }
 
-func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) error {
+func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) (result types.Result, err error) {
 	// get default net conf dir
 	netdir := os.Getenv(EnvNetDir)
 	if netdir == "" {
@@ -70,7 +71,7 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) error {
 	netconf, err := libcni.LoadConfList(netdir, c.Name)
 	if err != nil {
 		fmt.Printf("get cni configuration failed: %s", err)
-		return err
+		return nil, err
 	}
 
 	// what's cap argus
@@ -78,7 +79,7 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) error {
 	capabilityArgsValue := os.Getenv(EnvCapabilityArgs)
 	if len(capabilityArgsValue) > 0 {
 		if err = json.Unmarshal([]byte(capabilityArgsValue), &capabilityArgs); err != nil {
-			return err
+			return nil, err
 		}
 	}
 
@@ -87,7 +88,7 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) error {
 	if len(args) > 0 {
 		cniArgs, err = parseArgs(args)
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
 
@@ -98,7 +99,7 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) error {
 
 	netns, err := filepath.Abs(nsPath)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// Generate the containerd by hashing the netns path
@@ -118,13 +119,13 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) error {
 		if result != nil {
 			_ = result.Print()
 		}
-		return err
+		return result, err
 	case CmdCheck:
 		err = cninet.CheckNetworkList(context.TODO(), netconf, rt)
-		return err
+		return nil, err
 	case CmdDel:
 		err = cninet.DelNetworkList(context.TODO(), netconf, rt)
-		return err
+		return nil, err
 	}
-	return err
+	return nil, err
 }

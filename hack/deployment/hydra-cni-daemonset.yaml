@@ -1,4 +1,35 @@
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: hydra-cni-role
+  namespace: hydra-cni
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: hydra-cni-role-binding
+  namespace: hydra-cni
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: hydra-cni-role
+subjects:
+  - kind: ServiceAccount
+    name: hydra-cni-service-account
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hydra-cni-service-account
+  namespace: hydra-cni
+
+
+---
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -54,6 +85,7 @@ spec:
         app: hydra-cni
     spec:
       hostNetwork: true
+      serviceAccountName: echo-bio-service-account
       initContainers:
         - name: hydra-cni-init
           image: 'busybox:latest'
@@ -127,10 +159,10 @@ spec:
         - configMap:
             name: hydra-cni-cfg
           name: hydra-cni-cfg
-#        - name: flannel
-#          hostPath:
-#            path: /run/flannel/hydra-cni
-#            type: DirectoryOrCreate
+        - name: flannel
+          hostPath:
+            path: /run/flannel/hydra-cni
+            type: DirectoryOrCreate
         - hostPath:
             path: /run/xtables.lock
             type: FileOrCreate

@@ -19,6 +19,7 @@ package main
 import (
 	"context"
 	"flag"
+	kubeclient "github.com/hydra-cni/hydra/pkg/client-go"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -60,6 +61,7 @@ func main() {
 	}
 	logrus.Infof(" the cni config name is %s\n", cniConf)
 
+	kubeclient.KubeInitializer()
 	if pluginName != "" {
 		opts = append(opts, stub.WithPluginName(pluginName))
 	}

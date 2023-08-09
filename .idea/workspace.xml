@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: add cert for ipsec trans NAT">
+    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: update pod annotation with dedicated IP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hack/setup_k8s.sh" beforeDir="false" afterPath="$PROJECT_DIR$/hack/setup_k8s.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hack/deployment/hydra-cni-daemonset.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hack/deployment/hydra-cni-daemonset.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,25 +40,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/airren/IntelProject/hydra/hack/deployment&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;/Users/airren/IntelProject/hydra/hack/deployment/weave/weave-daemonset-k8s.yaml&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/Users/airren/IntelProject/hydra/hack/deployment",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "http.proxy",
+    "two.files.diff.last.used.file": "/Users/airren/IntelProject/hydra/hack/deployment/weave/weave-daemonset-k8s.yaml"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/hack/deployment" />
@@ -66,18 +66,26 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="go build github.com/hydra-cni/hydra/doc" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build github.com/hydra-cni/hydra/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="hydra" />
+      <target name="root@nuc-ubuntu22.sh.intel.com:22" />
       <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-idx 01 -cni-conf cbr0  -events runpodsandbox,stoppodsandbox,removepodsandbox" />
+      <envs>
+        <env name="KUBECONFIG" value="/home/airren/.kube/config" />
+        <env name="CNI_PATH" value="/opt/cni/bin" />
+        <env name="CNI_IFNAME" value="hydra" />
+      </envs>
       <kind value="PACKAGE" />
-      <package value="github.com/hydra-cni/hydra/doc" />
+      <package value="github.com/hydra-cni/hydra/cmd" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/doc/test.go" />
+      <option name="build_on_remote_target" value="true" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build github.com/hydra-cni/hydra/doc" />
+        <item itemvalue="Go Build.go build github.com/hydra-cni/hydra/cmd" />
       </list>
     </recent_temporary>
   </component>
@@ -125,9 +133,46 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- feat: add cert for ipsec trans NAT" />
-    <option name="LAST_COMMIT_MESSAGE" value="- feat: add cert for ipsec trans NAT" />
+    <MESSAGE value="- feat: update pod annotation with dedicated IP" />
+    <option name="LAST_COMMIT_MESSAGE" value="- feat: update pod annotation with dedicated IP" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
+          <line>88</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
+          <line>95</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
+          <line>99</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
+          <line>100</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/cni/networkns.go</url>
+          <line>71</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/cni/networkns.go</url>
+          <line>70</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,8 +1,14 @@
 package plugin
 
 import (
+	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
+	types "github.com/containernetworking/cni/pkg/types/040"
+	kubeclient "github.com/hydra-cni/hydra/pkg/client-go"
+	v1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -78,7 +84,21 @@ func (p *CNIPlugin) RunPodSandbox(pod *api.PodSandbox) error {
 		return err
 	}
 	logrus.Infof("the namespace path is: %s ", nsPath)
-	return cni.DefaultCNIPlugin.AddNetworkInterface(nsPath)
+	res, err := cni.DefaultCNIPlugin.AddNetworkInterface(nsPath)
+
+	IPdetail, enalbe := res.(*types.Result)
+	if !enalbe {
+		return err
+	}
+
+	ipstr, _ := json.Marshal(IPdetail)
+	pod.Annotations["hydra.clusternet.io"] = string(ipstr)
+	newpod := &v1.Pod{
+		TypeMeta:   metav1.TypeMeta{},
+		ObjectMeta: metav1.ObjectMeta{Name: pod.Name, Namespace: pod.Namespace, Annotations: pod.Annotations},
+	}
+	err = kubeclient.UpdatePodAnnotation(context.TODO(), newpod)
+	return err
 }
 
 func (p *CNIPlugin) StopPodSandbox(pod *api.PodSandbox) error {
@@ -91,7 +111,8 @@ func (p *CNIPlugin) StopPodSandbox(pod *api.PodSandbox) error {
 		return err
 	}
 	logrus.Infof("the namespace path is: %s ", nsPath)
-	return cni.DefaultCNIPlugin.DelNetworkInterface(nsPath)
+	_, err = cni.DefaultCNIPlugin.DelNetworkInterface(nsPath)
+	return err
 }
 
 func (p *CNIPlugin) RemovePodSandbox(pod *api.PodSandbox) error {
