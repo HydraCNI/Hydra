@@ -19,7 +19,7 @@ metadata:
   name: hydra-cni-role-binding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
+  kind: ClusterRole
   name: hydra-cni-role
 subjects:
   - kind: ServiceAccount
