@@ -10,14 +10,17 @@ spec:
   containers:
     - name: nginx
       image: nginx:1.14.2
+      imagePullPolicy: IfNotPresent
       ports:
         - containerPort: 80
     - name: busybox
       command: [ "/bin/ash", "-c", "trap : TERM INT; sleep infinity & wait" ]
       image: busybox
+      imagePullPolicy: IfNotPresent
     - name: alpine
       command: [ "sleep","infinity" ]
       image: alpine/curl
+      imagePullPolicy: IfNotPresent
 
 
 

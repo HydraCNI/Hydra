@@ -1,0 +1,173 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: clusternet-cni
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: clusternet-cni-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods","pods/status"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: clusternet-cni-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: clusternet-cni-role
+subjects:
+  - kind: ServiceAccount
+    name: clusternet-cni-service-account
+    namespace: clusternet-cni
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: clusternet-cni-service-account
+  namespace: clusternet-cni
+
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    k8s-app: clusternet-cni
+    pod-security.kubernetes.io/enforce: privileged
+  name: clusternet-cni
+---
+apiVersion: v1
+data:
+  cni-conf.json: |
+    {
+      "name": "clusternet",
+      "cniVersion": "0.3.1",
+      "plugins": [
+        {
+          "type": "flannel",
+          "delegate": {
+            "type": "bridge",
+            "bridge": "clusternet.0",
+            "hairpinMode": true,
+            "isDefaultGateway": true
+          }
+        },
+        {
+          "type": "portmap",
+          "capabilities": {
+            "portMappings": true
+          }
+        }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  name: clusternet-cni-cfg
+  namespace: clusternet-cni
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: clusternet-cni
+  name: clusternet-cni-ds
+  namespace: clusternet-cni
+spec:
+  selector:
+    matchLabels:
+      app: clusternet-cni
+  template:
+    metadata:
+      labels:
+        app: clusternet-cni
+    spec:
+      hostNetwork: true
+      serviceAccountName: clusternet-cni-service-account
+      initContainers:
+        - name: clusternet-cni-init
+          image: 'busybox:latest'
+          imagePullPolicy: IfNotPresent
+          command:
+            - cp
+          args:
+            - -f
+            - /etc/hydra-cni/cni-conf.json
+            - /etc/cni/net.d/99-hydra.conflist
+          volumeMounts:
+            - mountPath: /etc/cni/net.d
+              name: cniconf
+            - mountPath: /etc/hydra-cni
+              name: hydra-cni-cfg
+      containers:
+        - name: hydra-cni
+          command:
+            - "/hydra-cni"
+          args:
+            - "-idx"
+            - "01"
+            - "-cni-conf"
+            - "clusternet"
+            - "-events"
+            - "runpodsandbox,stoppodsandbox,removepodsandbox"
+          env:
+            - name: CNI_PATH
+              value: /opt/cni/bin
+            - name: CNI_IFNAME
+              value: eth99
+          image: docker.io/airren/hydra-cni:latest
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: cnipath
+              mountPath: /opt/cni/bin
+            - name: cniconf
+              mountPath: /etc/cni/net.d
+            - name: netns
+              mountPath: /var/run/netns
+              mountPropagation: Bidirectional
+            - name: nrisock
+              mountPath: /var/run/nri/nri.sock
+            - name: flannel
+              mountPath: /run/flannel
+            - mountPath: /run/xtables.lock
+              name: xtables-lock
+      volumes:
+        - name: cnipath
+          hostPath:
+            path: /opt/cni/bin
+            type: Directory
+        - name: cniconf
+          hostPath:
+            path: /etc/cni/net.d
+            type: Directory
+        - name: netns
+          hostPath:
+            path: /var/run/netns
+            type: Directory
+        - name: nrisock
+          hostPath:
+            path: /var/run/nri/nri.sock
+            type: Socket
+        - configMap:
+            name: hydra-cni-cfg
+          name: hydra-cni-cfg
+        - name: flannel
+          hostPath:
+            path: /run/flannel/hydra-cni
+            type: DirectoryOrCreate
+        - hostPath:
+            path: /run/xtables.lock
+            type: FileOrCreate
+          name: xtables-lock

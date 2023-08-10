@@ -92,7 +92,7 @@ func (p *CNIPlugin) RunPodSandbox(pod *api.PodSandbox) error {
 	}
 
 	ipstr, _ := json.Marshal(IPdetail)
-	pod.Annotations["hydra.clusternet.io"] = string(ipstr)
+	pod.Annotations["clusternet.clusternet.io"] = string(ipstr)
 	newpod := &v1.Pod{
 		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
