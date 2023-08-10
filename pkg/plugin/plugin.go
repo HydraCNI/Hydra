@@ -94,8 +94,13 @@ func (p *CNIPlugin) RunPodSandbox(pod *api.PodSandbox) error {
 	ipstr, _ := json.Marshal(IPdetail)
 	pod.Annotations["hydra.clusternet.io"] = string(ipstr)
 	newpod := &v1.Pod{
-		TypeMeta:   metav1.TypeMeta{},
-		ObjectMeta: metav1.ObjectMeta{Name: pod.Name, Namespace: pod.Namespace, Annotations: pod.Annotations},
+		TypeMeta: metav1.TypeMeta{},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:        pod.Name,
+			Namespace:   pod.Namespace,
+			Annotations: pod.Annotations,
+			Labels:      pod.Labels,
+		},
 	}
 	err = kubeclient.UpdatePodAnnotation(context.TODO(), newpod)
 	return err
