@@ -161,7 +161,7 @@ spec:
             path: /var/run/nri/nri.sock
             type: Socket
         - configMap:
-            name: hydra-cni-cfg
+            name: clusternet-cni-cfg
           name: hydra-cni-cfg
         - name: flannel
           hostPath:
