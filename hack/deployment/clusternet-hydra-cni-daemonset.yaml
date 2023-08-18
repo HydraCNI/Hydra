@@ -118,6 +118,15 @@ spec:
       containers:
         - name: hydra-cni
           command:
+            - "/parallel-ep"
+          image: docker.io/airren/hydra-cni:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+        - name: hydra-cni
+          command:
             - "/hydra-cni"
           args:
             - "-idx"

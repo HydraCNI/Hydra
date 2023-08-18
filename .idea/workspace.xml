@@ -4,7 +4,48 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: update pod annotation with dedicated IP" />
+    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: update pod annotation with dedicated IP">
+      <change afterPath="$PROJECT_DIR$/cmd/parallel_ep/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/controller/endpoint/endpoint.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/controller/endpointslice/endpointslice.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/.github/PULL_REQUEST_TEMPLATE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/OWNERS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/SECURITY_CONTACTS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/code-of-conduct.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/metrics/cache.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/metrics/cache_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/metrics/metrics.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/reconciler.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/reconciler_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/event.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/sliceinfo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/sliceinfo_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/topologycache.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/topologycache_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/utils.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/utils_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/controller_utils.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/controller_utils_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/endpointset.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/endpointslice_tracker.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/endpointslice_tracker_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/trigger_time_tracker.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/trigger_time_tracker_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/utils.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/utils_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/hydra-cni" beforeDir="false" afterPath="$PROJECT_DIR$/bin/hydra-cni" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/hydra/hydra.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/hydra/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +94,7 @@
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/airren/IntelProject/hydra/hack/deployment",
+    "last_opened_file_path": "/Users/airren/IntelProject/hydra",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
@@ -63,6 +104,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/pkg" />
+      <recent name="$PROJECT_DIR$/cmd" />
       <recent name="$PROJECT_DIR$/hack/deployment" />
       <recent name="$PROJECT_DIR$/hack/deployment/weave" />
     </key>

@@ -12,4 +12,5 @@ RUN apk add --no-cache iproute2 net-tools ca-certificates iptables strongswan &&
 RUN apk add wireguard-tools --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
 
 COPY --from=builder /workspace/bin/hydra-cni  /
+COPY --from=builder /workspace/bin/parallel-ep  /
 ENTRYPOINT "/hydra-cni"

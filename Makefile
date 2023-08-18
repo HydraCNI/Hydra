@@ -16,6 +16,7 @@ endif
 
 build:
 	go build -o ./bin/hydra-cni ./cmd/hydra
+	go build -o ./bin/parallel-ep ./cmd/parallel_ep
 
 build-img:
 	podman build -t $(IMAGE_NAME) $(DOCKERARGS) --network host --no-cache -f ./Dockerfile ./
