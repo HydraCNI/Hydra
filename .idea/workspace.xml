@@ -5,46 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: update pod annotation with dedicated IP">
-      <change afterPath="$PROJECT_DIR$/cmd/parallel_ep/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/controller/endpoint/endpoint.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/controller/endpointslice/endpointslice.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/.github/PULL_REQUEST_TEMPLATE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/CONTRIBUTING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/OWNERS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/SECURITY_CONTACTS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/code-of-conduct.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/doc.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/metrics/cache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/metrics/cache_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/metrics/metrics.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/reconciler.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/reconciler_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/event.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/sliceinfo.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/sliceinfo_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/topologycache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/topologycache_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/topologycache/utils_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/controller_utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/controller_utils_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/endpointset.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/endpointslice_tracker.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/endpointslice_tracker_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/trigger_time_tracker.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/util/trigger_time_tracker_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staging/k8s.io/endpointslice/utils_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/hydra-cni" beforeDir="false" afterPath="$PROJECT_DIR$/bin/hydra-cni" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/hydra/hydra.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/hydra/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,8 +75,8 @@
       <recent name="$PROJECT_DIR$/cmd/hydra" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="go build github.com/hydra-cni/hydra/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Build.parallel_ep">
+    <configuration name="hydra" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="hydra" />
       <target name="root@nuc-ubuntu22.sh.intel.com:22" />
       <working_directory value="$PROJECT_DIR$" />
@@ -126,15 +87,31 @@
         <env name="CNI_IFNAME" value="hydra" />
       </envs>
       <kind value="PACKAGE" />
-      <package value="github.com/hydra-cni/hydra/cmd" />
+      <package value="github.com/hydra-cni/hydra/cmd/hydra" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/doc/test.go" />
       <option name="build_on_remote_target" value="true" />
       <method v="2" />
     </configuration>
+    <configuration name="parallel_ep" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="hydra" />
+      <target name="root@nuc-ubuntu22.sh.intel.com:22" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="--kubeconfig /home/airren/.kube/config" />
+      <kind value="PACKAGE" />
+      <package value="github.com/hydra-cni/hydra/cmd/parallel_ep" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <option name="build_on_remote_target" value="true" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.parallel_ep" />
+      <item itemvalue="Go Build.hydra" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build github.com/hydra-cni/hydra/cmd" />
+        <item itemvalue="Go Build.hydra" />
       </list>
     </recent_temporary>
   </component>
