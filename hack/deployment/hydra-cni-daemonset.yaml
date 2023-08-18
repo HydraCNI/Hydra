@@ -9,9 +9,19 @@ kind: ClusterRole
 metadata:
   name: hydra-cni-role
 rules:
-  - apiGroups: [""]
-    resources: ["pods","pods/status"]
-    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups:
+      - ""
+    resources:
+      - "pods"
+      - "pods/status"
+      - "endpoints"
+      - "services"
+    verbs: [ "get", "list", "watch", "create", "update", "patch", "delete" ]
+  - apiGroups:
+      - discovery.k8s.io
+    resources:
+      - endpointslices
+    verbs: [ "get", "list", "watch", "create", "update", "patch", "delete" ]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
