@@ -15,7 +15,7 @@ endif
 #DOCKERARGS += --build-arg CNI_VERSION=$(CNI_VERSION)
 
 build:
-	go build -o ./bin/hydra-cni ./cmd
+	go build -o ./bin/hydra-cni ./cmd/hydra
 
 build-img:
 	podman build -t $(IMAGE_NAME) $(DOCKERARGS) --network host --no-cache -f ./Dockerfile ./

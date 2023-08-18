@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: update pod annotation with dedicated IP">
-      <change afterPath="$PROJECT_DIR$/hack/deployment/nginx-demo/nginx-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/hydra.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hydra.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/cni-plugin.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/hydra/hydra.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hack/deployment/hydra-cni-daemonset.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hack/deployment/hydra-cni-daemonset.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: update pod annotation with dedicated IP" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
