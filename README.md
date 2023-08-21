@@ -16,8 +16,7 @@ kubectl apply -f etcd-service.yaml
 check etcd service status
 ```shell
  kubectl describe svc -n kube-system kube-etcd
-```
-
+``
 #### Deploy hydra-flannel
 
 ```shell
