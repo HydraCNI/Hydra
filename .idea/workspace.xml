@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- feat: update pod annotation with dedicated IP">
+    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- fix: hydra cni deployment yaml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hack/deployment/clusternet-hydra-cni-daemonset.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hack/deployment/clusternet-hydra-cni-daemonset.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +23,14 @@
   </component>
   <component name="GOROOT" url="file:///opt/homebrew/Cellar/go/1.20.4/libexec" />
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Airren &lt;renqiqiang@outlook.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="KubernetesApiPersistence">
     <option name="context" value="kubernetes-admin@kubernetes" />
@@ -162,7 +167,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- feat: add cert for ipsec trans NAT" />
     <MESSAGE value="- feat: update pod annotation with dedicated IP" />
-    <option name="LAST_COMMIT_MESSAGE" value="- feat: update pod annotation with dedicated IP" />
+    <MESSAGE value="- fix: hydra cni deployment yaml" />
+    <option name="LAST_COMMIT_MESSAGE" value="- fix: hydra cni deployment yaml" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
