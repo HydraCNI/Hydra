@@ -12,6 +12,7 @@ rules:
   - apiGroups:
       - ""
     resources:
+      - "nodes"
       - "pods"
       - "pods/status"
       - "endpoints"
@@ -116,7 +117,7 @@ spec:
             - mountPath: /etc/hydra-cni
               name: hydra-cni-cfg
       containers:
-        - name: hydra-cni
+        - name: parallel-ep
           command:
             - "/parallel-ep"
           image: docker.io/airren/hydra-cni:latest
