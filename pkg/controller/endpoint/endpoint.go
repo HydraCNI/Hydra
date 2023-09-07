@@ -168,7 +168,6 @@ type Controller struct {
 
 // Run will not return until stopCh is closed. workers determines how many
 // endpoints will be handled in parallel.
-
 func (e *Controller) Run(ctx context.Context, workers int) {
 	defer utilruntime.HandleCrash()
 
@@ -186,9 +185,6 @@ func (e *Controller) Run(ctx context.Context, workers int) {
 	if !cache.WaitForNamedCacheSync("endpoint", ctx.Done(), e.podsSynced, e.servicesSynced, e.endpointsSynced) {
 		return
 	}
-	//if !cache.WaitForCacheSync(ctx.Done(), e.podsSynced, e.servicesSynced, e.endpointsSynced) {
-	//	return
-	//}
 
 	for i := 0; i < workers; i++ {
 		go wait.UntilWithContext(ctx, e.worker, e.workerLoopPeriod)
@@ -433,7 +429,7 @@ func (e *Controller) syncService(ctx context.Context, key string) error {
 
 	// We call ComputeEndpointLastChangeTriggerTime here to make sure that the
 	// state of the trigger time tracker gets updated even if the sync turns out
-	// to be no-op and we don't update the endpoints object.
+	// to be no-op, and we don't update the endpoints object.
 	endpointsLastChangeTriggerTime := e.triggerTimeTracker.
 		ComputeEndpointLastChangeTriggerTime(namespace, service, pods)
 

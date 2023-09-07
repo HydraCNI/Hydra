@@ -122,13 +122,13 @@ function containerd_install() {
 
   RUNC_VERSION=v1.1.4
   if [ ! -e runc.amd64 ]; then
-    wget -c  https://github.com/opencontainers/runc/releases/download/$RUNC_VERSION/runc.amd64
+    wget -c https://github.com/opencontainers/runc/releases/download/$RUNC_VERSION/runc.amd64
   fi
   sudo install -m 755 runc.amd64 /usr/local/sbin/runc
 
   CONTAINERD_VERSION=1.7.0
   if [ ! -e containerd-$CONTAINERD_VERSION-linux-amd64.tar.gz ]; then
-    wget -c  https://github.com/containerd/containerd/releases/download/v$CONTAINERD_VERSION/containerd-$CONTAINERD_VERSION-linux-amd64.tar.gz
+    wget -c https://github.com/containerd/containerd/releases/download/v$CONTAINERD_VERSION/containerd-$CONTAINERD_VERSION-linux-amd64.tar.gz
   fi
   sudo tar Czxvf /usr/local containerd-$CONTAINERD_VERSION-linux-amd64.tar.gz
 
@@ -147,7 +147,7 @@ function containerd_install() {
   fi
 
   sudo mkdir -p /etc/containerd/
-  containerd config default | sudo tee /etc/containerd/config.toml > /dev/null 2>&1
+  containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
   sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
   sudo sed -i 's/disable \= true/disable \= false/g' /etc/containerd/config.toml
 
@@ -165,17 +165,17 @@ function kube_install() {
 
   if [ $proxy_flag == 'on' ]; then
     sudo curl -x ${http_proxy} \
-      -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg \
-      http://echo-bio.cn:8888/kubernetes-archive-keyring.gpg
+      -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key |
+      sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
   else
-    sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg \
-    http://echo-bio.cn:8888/kubernetes-archive-keyring.gpg
+    sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key |
+      sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   fi
 
-  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] \
-  https://apt.kubernetes.io/ kubernetes-xenial main" |
-    sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | \
+  sudo tee /etc/apt/sources.list.d/kubernetes.list
 
   sudo apt-get update
   sudo apt-mark unhold kubelet kubeadm kubectl
