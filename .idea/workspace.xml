@@ -7,7 +7,6 @@
     <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- fix: update readme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hack/setup_k8s.sh" beforeDir="false" afterPath="$PROJECT_DIR$/hack/setup_k8s.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/controller/endpoint/endpoint.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/endpoint/endpoint.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +37,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
     <option name="SIGN_OFF_COMMIT" value="true" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/go/pkg/mod/k8s.io/client-go@v0.28.0/tools/cache/controller.go" root0="SKIP_INSPECTION" />
   </component>
   <component name="KubernetesApiPersistence">
     <option name="context" value="kubernetes-admin@kubernetes" />

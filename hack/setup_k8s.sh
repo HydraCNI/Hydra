@@ -6,7 +6,8 @@ http_proxy='http://proxy-prc.intel.com:913'
 proxy_flag='on'
 init_for_master="true"
 
-k8s_version='1.26.3'
+k8s_version='1.26.3' # 1.26.3 / 1.28.0
+k8s_minor_version=$(echo $k8s_version | cut -d '.' -f 1-2)
 pod_cidr='10.244.0.0/16'
 service_cidr='10.96.0.0/16'
 api_server_ip=
@@ -165,23 +166,25 @@ function kube_install() {
 
   if [ $proxy_flag == 'on' ]; then
     sudo curl -x ${http_proxy} \
-      -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key |
+      -fsSL https://pkgs.k8s.io/core:/stable:/v${k8s_minor_version}/deb/Release.key |
       sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
   else
-    sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key |
+    sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v${k8s_minor_version}/deb/Release.key |
       sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   fi
 
-
-  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | \
-  sudo tee /etc/apt/sources.list.d/kubernetes.list
+  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${k8s_minor_version}/deb/ /" |
+    sudo tee /etc/apt/sources.list.d/kubernetes.list
 
   sudo apt-get update
   sudo apt-mark unhold kubelet kubeadm kubectl
+  sudo apt-get remove kubelet kubeadm kubectl
+
   sudo apt-get install -y \
-    kubelet=${k8s_version}-00 kubeadm=${k8s_version}-00 \
-    kubectl=${k8s_version}-00
+    kubelet=$(apt-cache madison kubelet |grep ${k8s_version} | awk -F '|' '{gsub(/[[:space:]]/, "");print $2}') \
+    kubeadm=$(apt-cache madison kubeadm |grep ${k8s_version} | awk -F '|' '{gsub(/[[:space:]]/, "");print $2}') \
+    kubectl=$(apt-cache madison kubectl |grep ${k8s_version} | awk -F '|' '{gsub(/[[:space:]]/, "");print $2}')
   sudo apt-mark hold kubelet kubeadm kubectl
 
   if [ ! -z $docker_user ]; then
