@@ -3,6 +3,7 @@ package kubeclient
 import (
 	"context"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"os"
@@ -42,9 +43,12 @@ func KubeInitializer() {
 	informerFactory = informers.NewSharedInformerFactory(clientSet, time.Second*30)
 }
 
-func UpdatePodAnnotation(ctx context.Context, Pod *v1.Pod) error {
+func UpdatePodAnnotation(ctx context.Context, pod *v1.Pod) error {
 
-	_, err := clientSet.CoreV1().Pods("default").UpdateStatus(ctx, Pod, metav1.UpdateOptions{})
+	_, err := clientSet.CoreV1().Pods(pod.Namespace).UpdateStatus(ctx, pod, metav1.UpdateOptions{})
+	if err != nil {
+		logrus.Errorf("update pod annotation failed: %v", err)
+	}
 
 	return err
 }
