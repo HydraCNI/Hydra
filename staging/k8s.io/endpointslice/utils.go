@@ -17,11 +17,8 @@ limitations under the License.
 package endpointslice
 
 import (
-	"encoding/json"
 	"fmt"
 	"time"
-
-	cnitypes "github.com/containernetworking/cni/pkg/types/040"
 
 	v1 "k8s.io/api/core/v1"
 	discovery "k8s.io/api/discovery/v1"
@@ -34,6 +31,8 @@ import (
 	endpointutil "k8s.io/endpointslice/util"
 	"k8s.io/klog/v2"
 	utilnet "k8s.io/utils/net"
+
+	"github.com/hydra-cni/hydra/pkg/kubeclient"
 )
 
 // podToEndpoint returns an Endpoint object generated from a Pod, a Node, and a Service for a particular addressType.
@@ -111,18 +110,13 @@ func getEndpointPorts(logger klog.Logger, service *v1.Service, pod *v1.Pod) []di
 func getEndpointAddresses(pod *v1.Pod, service *v1.Service, addressType discovery.AddressType) []string {
 	addresses := []string{}
 
-	IP := cnitypes.Result{}
-	if val, ok := pod.Annotations["clusternet.clusternet.io"]; ok {
-		err := json.Unmarshal([]byte(val), &IP)
-		if err != nil {
-			return addresses
-		}
+	// find an ip that matches the family
+	ip, err := kubeclient.GetDedicatedCNIIP(pod)
+	if err != nil {
+		return addresses
 	}
-	if len(IP.IPs) > 0 {
-		podIP := fmt.Sprint(IP.IPs[0].Address.IP)
-		addresses = append(addresses, podIP)
-	}
-	return addresses
+
+	return append(addresses, ip.String())
 }
 
 // newEndpointSlice returns an EndpointSlice generated from a service and

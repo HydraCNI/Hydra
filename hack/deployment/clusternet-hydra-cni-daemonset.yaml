@@ -57,7 +57,7 @@ apiVersion: v1
 data:
   cni-conf.json: |
     {
-      "name": "clusternet",
+      "name": "parallel-cni",
       "cniVersion": "0.3.1",
       "plugins": [
         {
@@ -133,7 +133,7 @@ spec:
             - "-idx"
             - "01"
             - "-cni-conf"
-            - "clusternet"
+            - "parallel-cni"
             - "-events"
             - "runpodsandbox,stoppodsandbox,removepodsandbox"
           env:
@@ -141,6 +141,8 @@ spec:
               value: /opt/cni/bin
             - name: CNI_IFNAME
               value: eth99
+            - name: CNF_NAMESPACE
+              value: lmxia
           image: docker.io/airren/hydra-cni:latest
           imagePullPolicy: Always
           securityContext:

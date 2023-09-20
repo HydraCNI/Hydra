@@ -19,15 +19,15 @@ package main
 import (
 	"context"
 	"flag"
-	kubeclient "github.com/hydra-cni/hydra/pkg/client-go"
+	"github.com/hydra-cni/hydra/pkg/cni"
 	"os"
-
-	"github.com/sirupsen/logrus"
 
 	"github.com/containerd/nri/pkg/api"
 	"github.com/containerd/nri/pkg/stub"
-	"github.com/hydra-cni/hydra/pkg/cni"
-	"github.com/hydra-cni/hydra/pkg/plugin"
+	"github.com/sirupsen/logrus"
+
+	"github.com/hydra-cni/hydra/pkg/kubeclient"
+	"github.com/hydra-cni/hydra/pkg/nri"
 )
 
 func main() {
@@ -50,8 +50,8 @@ func main() {
 		DisableColors: false,
 	})
 
-	flag.StringVar(&pluginName, "name", "cni", "plugin name to register to NRI")
-	flag.StringVar(&pluginIdx, "idx", "00", "plugin index to register to NRI")
+	flag.StringVar(&pluginName, "name", "cni", "nri name to register to NRI")
+	flag.StringVar(&pluginIdx, "idx", "00", "nri index to register to NRI")
 	flag.StringVar(&events, "events", "runpodsandbox,stoppodsandbox,removepodsandbox", "comma-separated list of events to subscribe for")
 	flag.StringVar(&cniConf, "cni-conf", "hydra", "cni_config name")
 	flag.Parse()
@@ -61,6 +61,8 @@ func main() {
 	}
 	logrus.Infof(" the cni config name is %s\n", cniConf)
 
+	cni.DefaultCNIPlugin = cni.CNIPlugin{Name: cniConf}
+
 	kubeclient.KubeInitializer()
 	if pluginName != "" {
 		opts = append(opts, stub.WithPluginName(pluginName))
@@ -69,16 +71,14 @@ func main() {
 		opts = append(opts, stub.WithPluginIdx(pluginIdx))
 	}
 
-	cni.DefaultCNIPlugin = cni.CNIPlugin{Name: cniConf}
-
-	p := &plugin.CNIPlugin{}
+	p := &nri.CNIPlugin{}
 
 	if p.Mask, err = api.ParseEventMask(events); err != nil {
 		logrus.Fatalf("failed to parse events: %v", err)
 	}
 
 	if p.Stub, err = stub.New(p, append(opts, stub.WithOnClose(p.OnClose))...); err != nil {
-		logrus.Fatalf("failed to create plugin stub: %v", err)
+		logrus.Fatalf("failed to create nri stub: %v", err)
 	}
 
 	logrus.Infof(">>>>>>>>>>>>>>>>>>>>>  CNI Plugin Started - Version Tag 0.0.1 <<<<<<<<<<<<<<<<<<<<<<<<<<")

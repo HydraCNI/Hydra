@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
+	"github.com/sirupsen/logrus"
 	"os"
 	"path/filepath"
 	"time"
@@ -29,7 +29,6 @@ func main() {
 	flag.Parse()
 
 	config, err := rest.InClusterConfig()
-
 	if err != nil {
 		// fallback to kube config
 		if val := os.Getenv("KUBECONFIG"); len(val) != 0 {
@@ -37,8 +36,7 @@ func main() {
 		}
 		config, err = clientcmd.BuildConfigFromFlags("", kubeconfig)
 		if err != nil {
-			fmt.Printf("The kubeconfig cannot be loaded: %v\n", err)
-			os.Exit(1)
+			logrus.Fatalf("The kubeconfig cannot be loaded: %v\n", err)
 		}
 	}
 
@@ -47,7 +45,7 @@ func main() {
 		klog.Fatal(err)
 	}
 
-	factory := informers.NewSharedInformerFactory(clientset, time.Hour*24)
+	factory := informers.NewSharedInformerFactory(clientset, time.Minute)
 
 	stop := make(chan struct{})
 	defer close(stop)

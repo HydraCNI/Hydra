@@ -18,19 +18,17 @@ package endpoint
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"k8s.io/apimachinery/pkg/types"
 	"math"
 	"time"
 
-	cnitypes "github.com/containernetworking/cni/pkg/types/040"
 	v1 "k8s.io/api/core/v1"
 	apiequality "k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/conversion"
 	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/apimachinery/pkg/types"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
 	coreinformers "k8s.io/client-go/informers/core/v1"
@@ -47,10 +45,12 @@ import (
 	"k8s.io/kubernetes/pkg/api/v1/endpoints"
 	podutil "k8s.io/kubernetes/pkg/api/v1/pod"
 	api "k8s.io/kubernetes/pkg/apis/core"
-	helper "k8s.io/kubernetes/pkg/apis/core/v1/helper"
+	"k8s.io/kubernetes/pkg/apis/core/v1/helper"
 	"k8s.io/kubernetes/pkg/controller"
 	utillabels "k8s.io/kubernetes/pkg/util/labels"
 	utilnet "k8s.io/utils/net"
+
+	"github.com/hydra-cni/hydra/pkg/kubeclient"
 )
 
 const (
@@ -245,21 +245,13 @@ func podToEndpointAddressForService(svc *v1.Service, pod *v1.Pod) (*v1.EndpointA
 	}
 
 	// find an ip that matches the family
-	// find an ip that matches the family
-	IP := cnitypes.Result{}
-	if val, ok := pod.Annotations["clusternet.clusternet.io"]; ok {
-		err := json.Unmarshal([]byte(val), &IP)
-		if err != nil {
-			return nil, fmt.Errorf("do not have dedicated IP annotation: %v", err)
-		}
+	ip, err := kubeclient.GetDedicatedCNIIP(pod)
+	if err != nil {
+		return nil, err
 	}
 
-	if len(IP.IPs) > 0 {
-		podIP := fmt.Sprint(IP.IPs[0].Address.IP)
-		if (ipFamily == v1.IPv6Protocol) == utilnet.IsIPv6String(podIP) {
-			endpointIP = podIP
-		}
-
+	if (ipFamily == v1.IPv6Protocol) == utilnet.IsIPv6(ip) {
+		endpointIP = ip.String()
 	}
 
 	if endpointIP == "" {

@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- fix: update readme">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/client-go/kubeclient.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client-go/kubeclient.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/kubeclient/kubeclient.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/kubeclient/kubeclient.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;/Users/airren/IntelProject/hydra/hack/deployment/weave/weave-daemonset-k8s.yaml&quot;
   }
 }</component>
@@ -91,21 +90,32 @@
       <recent name="$PROJECT_DIR$/cmd/hydra" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.parallel_ep">
+  <component name="RunManager" selected="Go Build.hydra">
     <configuration name="hydra" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="hydra" />
       <target name="root@nuc-ubuntu22.sh.intel.com:22" />
       <working_directory value="$PROJECT_DIR$" />
-      <parameters value="-idx 01 -cni-conf cbr0  -events runpodsandbox,stoppodsandbox,removepodsandbox" />
+      <parameters value="-idx 02 -cni-conf cbr0  -events runpodsandbox,stoppodsandbox,removepodsandbox" />
       <envs>
-        <env name="KUBECONFIG" value="/home/airren/.kube/config" />
-        <env name="CNI_PATH" value="/opt/cni/bin" />
         <env name="CNI_IFNAME" value="hydra" />
+        <env name="CNI_PATH" value="/opt/cni/bin" />
+        <env name="KUBECONFIG" value="/home/airren/.kube/config" />
       </envs>
       <kind value="PACKAGE" />
       <package value="github.com/hydra-cni/hydra/cmd/hydra" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/doc/test.go" />
+      <option name="build_on_remote_target" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="netlink" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="hydra" />
+      <target name="root@nuc-ubuntu22.sh.intel.com:22" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/hydra-cni/hydra/cmd/netlink" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/cmd/netlink/main.go" />
       <option name="build_on_remote_target" value="true" />
       <method v="2" />
     </configuration>
@@ -123,11 +133,13 @@
     </configuration>
     <list>
       <item itemvalue="Go Build.parallel_ep" />
+      <item itemvalue="Go Build.netlink" />
       <item itemvalue="Go Build.hydra" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.hydra" />
+        <item itemvalue="Go Build.netlink" />
       </list>
     </recent_temporary>
   </component>
@@ -175,34 +187,34 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
-          <line>88</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/vendor/github.com/containernetworking/cni/libcni/api.go</url>
+          <line>452</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
-          <line>95</line>
-          <option name="timeStamp" value="14" />
+          <url>file://$PROJECT_DIR$/vendor/github.com/vishvananda/netns/netns_linux.go</url>
+          <line>101</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
-          <line>104</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/plugin/plugin.go</url>
-          <line>105</line>
-          <option name="timeStamp" value="16" />
+          <url>file://$PROJECT_DIR$/vendor/github.com/containernetworking/cni/libcni/api.go</url>
+          <line>420</line>
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/pkg/cni/networkns.go</url>
           <line>71</line>
-          <option name="timeStamp" value="18" />
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/cni/networkns.go</url>
-          <line>70</line>
-          <option name="timeStamp" value="19" />
+          <url>file://$PROJECT_DIR$/cmd/netlink/main.go</url>
+          <line>21</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/nri/cni_plugin.go</url>
+          <line>118</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -89,7 +89,7 @@ done
 VM_NAME="${NAME_PREFIX}-node-${NAME_SUFFIX}"
 
 #VM_STATUS=$(multipass info ${VM_NAME} --format json|jq \'.info."$VM_NAME".state\')
-echo kkkkkk "    $VM_NAME"
+echo "create VM：    $VM_NAME"
 if multipass info "${VM_NAME}"; then
   echo "the VM ${VM_NAME} exists. please double check with multipass ls."
 else

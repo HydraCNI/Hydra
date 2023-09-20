@@ -19,7 +19,8 @@ build:
 	go build -o ./bin/parallel-ep ./cmd/parallel_ep
 
 build-img:
-	podman build -t $(IMAGE_NAME) $(DOCKERARGS) --network host --no-cache -f ./Dockerfile ./
+	podman build -t $(IMAGE_NAME) $(DOCKERARGS) --network host -f ./Dockerfile ./
+	# podman build -t $(IMAGE_NAME) $(DOCKERARGS) --network host --no-cache -f ./Dockerfile ./
 
 push:
 	podman push $(IMAGE_NAME)

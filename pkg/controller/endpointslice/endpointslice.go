@@ -22,7 +22,6 @@ import (
 	"time"
 
 	"golang.org/x/time/rate"
-
 	v1 "k8s.io/api/core/v1"
 	discovery "k8s.io/api/discovery/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -74,7 +73,7 @@ const (
 
 	// controllerName is a unique value used with LabelManagedBy to indicated
 	// the component managing an EndpointSlice.
-	controllerName = "clusternet.clusternet.io"
+	controllerName = "cross-cluster.clusternet.io"
 )
 
 // NewController creates and initializes a new Controller

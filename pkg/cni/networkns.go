@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/sirupsen/logrus"
+
 	"github.com/containernetworking/cni/libcni"
 	"github.com/containernetworking/cni/pkg/types"
 )
@@ -28,9 +30,25 @@ const (
 	CmdDel   = "DEL"
 )
 
+var (
+	NetDir string
+	IfName string
+)
+
+func init() {
+	NetDir = os.Getenv(EnvNetDir)
+	if NetDir == "" {
+		NetDir = DefaultNetDir
+	}
+	ok := false
+	IfName, ok = os.LookupEnv(EnvCNIIfname)
+	if !ok {
+		IfName = fmt.Sprintf("eth99")
+	}
+}
+
 func parseArgs(args string) ([][2]string, error) {
 	var result [][2]string
-
 	pairs := strings.Split(args, ";")
 	for _, pair := range pairs {
 		kv := strings.Split(pair, "=")
@@ -62,15 +80,10 @@ func (c *CNIPlugin) CheckNetworkInterface(nsPath string) (result types.Result, e
 }
 
 func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) (result types.Result, err error) {
-	// get default net conf dir
-	netdir := os.Getenv(EnvNetDir)
-	if netdir == "" {
-		netdir = DefaultNetDir
-	}
-
-	netconf, err := libcni.LoadConfList(netdir, c.Name)
+	// get cni configuration by name
+	netconf, err := libcni.LoadConfList(NetDir, c.Name)
 	if err != nil {
-		fmt.Printf("get cni configuration failed: %s", err)
+		logrus.Errorf("get cni configuration failed: %s", err)
 		return nil, err
 	}
 
@@ -92,11 +105,6 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) (result ty
 		}
 	}
 
-	ifName, ok := os.LookupEnv(EnvCNIIfname)
-	if !ok {
-		ifName = fmt.Sprintf("eth99")
-	}
-
 	netns, err := filepath.Abs(nsPath)
 	if err != nil {
 		return nil, err
@@ -109,7 +117,7 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) (result ty
 	rt := &libcni.RuntimeConf{
 		ContainerID:    containerID,
 		NetNS:          netns,
-		IfName:         ifName,
+		IfName:         IfName,
 		Args:           cniArgs,
 		CapabilityArgs: capabilityArgs,
 	}
@@ -117,6 +125,7 @@ func (c *CNIPlugin) NetworkInterfaceOpt(nsPath string, cniOpt string) (result ty
 	case CmdAdd:
 		result, err := cninet.AddNetworkList(context.TODO(), netconf, rt)
 		if result != nil {
+			// cni result print
 			_ = result.Print()
 		}
 		return result, err
