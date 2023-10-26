@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/sirupsen/logrus"
 	"os"
 	"path/filepath"
 	"time"
 
+	"github.com/sirupsen/logrus"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
@@ -15,18 +15,27 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/klog/v2"
 
+	"github.com/hydra-cni/hydra/pkg/cni"
 	endpointcontroller "github.com/hydra-cni/hydra/pkg/controller/endpoint"
 	endpointslicecontroller "github.com/hydra-cni/hydra/pkg/controller/endpointslice"
+	"github.com/hydra-cni/hydra/pkg/kubeclient"
 )
 
-var kubeconfig string
+var (
+	kubeconfig string
+	cniConf    string
+)
 
 func init() {
 	flag.StringVar(&kubeconfig, "kubeconfig", filepath.Join(os.Getenv("HOME"), ".kube", "config"), "absolute path to the kubeconfig file")
+	flag.StringVar(&cniConf, "cni-conf", "hydra", "cni_config name")
 }
 
 func main() {
 	flag.Parse()
+
+	cni.DefaultCNIPlugin = cni.CNIPlugin{Name: cniConf}
+	kubeclient.CreateDedicatedIPAnnotationKey()
 
 	config, err := rest.InClusterConfig()
 	if err != nil {

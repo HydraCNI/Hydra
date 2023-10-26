@@ -13,7 +13,6 @@ import (
 	"github.com/containerd/nri/pkg/api"
 	"github.com/containernetworking/cni/pkg/types"
 	cnitypes "github.com/containernetworking/cni/pkg/types/040"
-	"github.com/hydra-cni/hydra/pkg/cni"
 	"github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -21,6 +20,8 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+
+	"github.com/hydra-cni/hydra/pkg/cni"
 )
 
 const (
@@ -41,9 +42,11 @@ func init() {
 	cnfNamespace = os.Getenv(CNF_NAMESPACE)
 }
 
-func KubeInitializer() {
-
+func CreateDedicatedIPAnnotationKey() {
 	ParallelIpKey = fmt.Sprintf("cross-cluster.clusternet.io.%v", cni.DefaultCNIPlugin.Name)
+}
+
+func KubeInitializer() {
 
 	config, err := rest.InClusterConfig()
 	if err != nil {
@@ -116,6 +119,7 @@ func GetDedicatedCNIIP(pod *v1.Pod) (ip net.IP, err error) {
 }
 
 func UpdatePodAnnotationIP(pod *api.PodSandbox, res types.Result, err error) error {
+	logrus.Infof(">>>>>>>>> update pod annotation")
 	IPDetail, enable := res.(*cnitypes.Result)
 	if !enable {
 		return errors.New("ip enable failed")

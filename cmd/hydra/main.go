@@ -19,13 +19,13 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/hydra-cni/hydra/pkg/cni"
 	"os"
 
 	"github.com/containerd/nri/pkg/api"
 	"github.com/containerd/nri/pkg/stub"
 	"github.com/sirupsen/logrus"
 
+	"github.com/hydra-cni/hydra/pkg/cni"
 	"github.com/hydra-cni/hydra/pkg/kubeclient"
 	"github.com/hydra-cni/hydra/pkg/nri"
 )
@@ -62,6 +62,7 @@ func main() {
 	logrus.Infof(" the cni config name is %s\n", cniConf)
 
 	cni.DefaultCNIPlugin = cni.CNIPlugin{Name: cniConf}
+	kubeclient.CreateDedicatedIPAnnotationKey()
 
 	kubeclient.KubeInitializer()
 	if pluginName != "" {
