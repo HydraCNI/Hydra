@@ -127,6 +127,9 @@ spec:
         - name: parallel-ep
           command:
             - "/parallel-ep"
+          args:
+            - "-cni-conf"
+            - "parallel-cni"
           image: docker.io/airren/hydra-cni:latest
           imagePullPolicy: Always
           resources:
