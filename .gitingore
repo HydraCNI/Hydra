@@ -1,7 +1,3 @@
-./bin/*
 .idea
-./.idea
-.idea/*
-.bin
+bin
 vendor
-./vendor/*

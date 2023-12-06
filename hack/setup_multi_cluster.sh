@@ -17,6 +17,14 @@
 ./setup_vm.sh -c 4 -m 8 -d 40 -v jammy -p child-2 -s 2
 
 # create 3 cluster
-multipass exec parent-node-0 -- cd /home/ubuntu/hack && ./setup_k8s.sh && kubectl apply -f ./deployment/kube-flannel.yml
-multipass exec child-1-node-0 -- cd /home/ubuntu/hack && ./setup_k8s.sh && kubectl apply -f ./deployment/kube-flannel.yml
-multipass exec child-2-node-0 -- cd /home/ubuntu/hack && ./setup_k8s.sh && kubectl apply -f ./deployment/kube-flannel.yml
+multipass exec parent-node-0  -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on ;  kubectl apply -f ./deployment/kube-flannel.yml"
+multipass exec child-1-node-0 -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on ;  kubectl apply -f ./deployment/kube-flannel.yml"
+multipass exec child-2-node-0 -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on ;  kubectl apply -f ./deployment/kube-flannel.yml"
+
+multipass exec parent-node-1  -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on -m false "
+multipass exec child-1-node-1 -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on -m false "
+multipass exec child-2-node-1 -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on -m false "
+
+multipass exec parent-node-2  -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on -m false "
+multipass exec child-1-node-2 -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on -m false "
+multipass exec child-2-node-2 -- bash -c "cd /home/ubuntu/hack && ./setup_k8s.sh -f on -m false "

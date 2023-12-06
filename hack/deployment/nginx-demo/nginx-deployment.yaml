@@ -22,6 +22,10 @@ spec:
           command: [ "/bin/ash", "-c", "trap : TERM INT; sleep infinity " ]
           image: busybox
           imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: false
+            capabilities:
+              add: [ "NET_ADMIN", "NET_RAW" ]
         - name: alpine
           command: [ "sleep","infinity" ]
           image: alpine/curl
