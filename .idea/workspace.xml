@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- fix: add event rbac">
+      <change beforePath="$PROJECT_DIR$/doc/.$clusternet_cni.drawio.bkp" beforeDir="false" afterPath="$PROJECT_DIR$/doc/.$clusternet_cni.drawio.bkp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/clusternet_cni.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/doc/clusternet_cni.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.work.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.work.sum" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kubernetes Service" />
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file:///opt/homebrew/opt/go/libexec" />
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Airren &lt;renqiqiang@outlook.com&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="-feat: update readme&#10;&#10;Signed-off-by: Airren &lt;qiang.ren@intel.com&gt;" />
+        <option name="rewordedMessage" value="-feat: update readme&#10;&#10;Signed-off-by: Airren &lt;qiang.ren@intel.com&gt;" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="8e6e7ed8ec905c5d3afe47dae4cac67455a62c1e" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/go/pkg/mod/k8s.io/client-go@v0.28.0/tools/cache/controller.go" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="KubernetesApiPersistence">
+    <option name="context" value="kubernetes-admin@kubernetes" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2Pp4MJnxJaJwpUz88oUvplyacIG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/airren/IntelProject/hydra&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;http.proxy&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;/Users/airren/IntelProject/hydra/hack/deployment/weave/weave-daemonset-k8s.yaml&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/pkg" />
+      <recent name="$PROJECT_DIR$/cmd" />
+      <recent name="$PROJECT_DIR$/hack/deployment" />
+      <recent name="$PROJECT_DIR$/hack/deployment/weave" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmd/hydra" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.hydra">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="hydra" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="hydra" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="hydra" />
+      <target name="root@nuc-ubuntu22.sh.intel.com:22" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-idx 02 -cni-conf cbr0  -events runpodsandbox,stoppodsandbox,removepodsandbox" />
+      <envs>
+        <env name="CNI_IFNAME" value="hydra" />
+        <env name="CNI_PATH" value="/opt/cni/bin" />
+        <env name="KUBECONFIG" value="/home/airren/.kube/config" />
+      </envs>
+      <kind value="PACKAGE" />
+      <package value="github.com/hydra-cni/hydra/cmd/hydra" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/doc/test.go" />
+      <option name="build_on_remote_target" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="netlink" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="hydra" />
+      <target name="root@nuc-ubuntu22.sh.intel.com:22" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/hydra-cni/hydra/cmd/netlink" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/cmd/netlink/main.go" />
+      <option name="build_on_remote_target" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="parallel_ep" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="hydra" />
+      <target name="root@nuc-ubuntu22.sh.intel.com:22" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="--kubeconfig /home/airren/.kube/config --cni-conf cbr0" />
+      <envs>
+        <env name="KUBECONFIG" value="/home/airren/.kube/config" />
+      </envs>
+      <kind value="PACKAGE" />
+      <package value="github.com/hydra-cni/hydra/cmd/parallel_ep" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <option name="build_on_remote_target" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="hydra" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.parallel_ep" />
+      <item itemvalue="Go Build.netlink" />
+      <item itemvalue="Go Build.hydra" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.hydra" />
+        <item itemvalue="Go Build.netlink" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- feat: add cert for ipsec trans NAT" />
+    <MESSAGE value="- feat: update pod annotation with dedicated IP" />
+    <MESSAGE value="- fix: hydra cni deployment yaml" />
+    <MESSAGE value="- fix: update readme" />
+    <MESSAGE value="- fix: cni annotation bug fix" />
+    <MESSAGE value="- fix: add event rbac" />
+    <option name="LAST_COMMIT_MESSAGE" value="- fix: add event rbac" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/vendor/github.com/containernetworking/cni/libcni/api.go</url>
+          <line>452</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/vendor/github.com/vishvananda/netns/netns_linux.go</url>
+          <line>101</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/vendor/github.com/containernetworking/cni/libcni/api.go</url>
+          <line>420</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cmd/netlink/main.go</url>
+          <line>21</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/nri/cni_plugin.go</url>
+          <line>118</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cmd/hydra/main.go</url>
+          <line>66</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/kubeclient/kubeclient.go</url>
+          <line>50</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/kubeclient/kubeclient.go</url>
+          <line>104</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
