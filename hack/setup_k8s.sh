@@ -6,7 +6,7 @@ http_proxy='http://proxy-prc.intel.com:913'
 proxy_flag='off'
 init_for_master="true"
 
-k8s_version='1.28.1' # 1.26.3 / 1.28.0
+k8s_version='1.28.11' # 1.26.3 / 1.28.0
 k8s_minor_version=$(echo $k8s_version | cut -d '.' -f 1-2)
 pod_cidr='10.244.0.0/16'
 service_cidr='10.96.0.0/16'
@@ -85,7 +85,7 @@ Environment="NO_PROXY=localhost,127.0.0.1,10.239.0.0/16,10.244.0.0/16,10.96.0.0/
 EOF
   sudo systemctl daemon-reload
   sudo systemctl restart containerd
-  sleep 20s
+  sleep 2s
 
 }
 
@@ -154,7 +154,7 @@ function containerd_install() {
 
   sudo systemctl restart containerd
 
-  sleep 20s
+  sleep 2s
 
   sudo chmod 666 /run/containerd/containerd.sock
 }
@@ -164,6 +164,7 @@ function kube_install() {
   sudo apt-get install -y apt-transport-https ca-certificates curl \
     net-tools ipvsadm
 
+  sudo rm /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   if [ $proxy_flag == 'on' ]; then
     sudo curl -x ${http_proxy} \
       -fsSL https://pkgs.k8s.io/core:/stable:/v${k8s_minor_version}/deb/Release.key |
@@ -179,7 +180,7 @@ function kube_install() {
 
   sudo apt-get update
   sudo apt-mark unhold kubelet kubeadm kubectl
-  sudo apt-get remove kubelet kubeadm kubectl
+  sudo apt-get remove kubelet kubeadm kubectl -y
 
   sudo apt-get install -y \
     kubelet=$(apt-cache madison kubelet |grep ${k8s_version} | awk -F '|' '{gsub(/[[:space:]]/, "");print $2}') \
@@ -229,7 +230,7 @@ function kube_init_master() {
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   # let master also be a work node
   # kubectl taint nodes --all node-role.kubernetes.io/master-
-  # kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
   # kubectl autocomplete
   cat <<EOF | sudo tee ~/.alias
