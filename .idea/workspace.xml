@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a9bdd94-bb5c-459e-af50-ea64b025af28" name="Changes" comment="- fix: update flowchart">
-      <change beforePath="$PROJECT_DIR$/doc/.$clusternet_cni.drawio.bkp" beforeDir="false" afterPath="$PROJECT_DIR$/doc/.$clusternet_cni.drawio.bkp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/clusternet_cni.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/doc/clusternet_cni.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hack/setup_k8s.sh" beforeDir="false" afterPath="$PROJECT_DIR$/hack/setup_k8s.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +37,12 @@
     <option name="RESET_MODE" value="HARD" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Airren"
+  }
+}]]></component>
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
       <RewordedCommitMessageMapping>
@@ -48,6 +53,12 @@
     <option name="currentCommit" value="1" />
     <option name="onto" value="8e6e7ed8ec905c5d3afe47dae4cac67455a62c1e" />
   </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:HydraCNI/Hydra.git",
+    "accountId": "e2283a32-1b57-4585-a964-9392425023a7"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/go/pkg/mod/k8s.io/client-go@v0.28.0/tools/cache/controller.go" root0="SKIP_INSPECTION" />
   </component>
