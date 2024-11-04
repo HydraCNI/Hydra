@@ -225,6 +225,9 @@ function kube_init_master() {
     --apiserver-advertise-address=${ipaddr} \
     --cri-socket=unix:///run/containerd/containerd.sock
 
+  echo 'readOnlyPort: 10255' | sudo tee -a  /var/lib/kubelet/config.yaml
+  sudo systemctl restart kubelet.service
+
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config

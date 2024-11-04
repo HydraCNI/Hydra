@@ -81,7 +81,7 @@ function set_proxy_for_containerd() {
 [Service]
 Environment="HTTP_PROXY=http://proxy-prc.intel.com:913/"
 Environment="HTTPS_PROXY=http://proxy-prc.intel.com:913/"
-Environment="NO_PROXY=localhost,127.0.0.1,10.239.0.0/16,10.244.0.0/16,10.96.0.0/16,10.0.0/24"
+Environment="NO_PROXY=localhost,127.0.0.1,10.239.0.0/16,10.244.0.0/16,10.96.0.0/16,10.0.0.0/8"
 EOF
   sudo systemctl daemon-reload
   sudo systemctl restart containerd
