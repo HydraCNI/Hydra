@@ -6,7 +6,9 @@ http_proxy='http://proxy-prc.intel.com:913'
 proxy_flag='off'
 init_for_master="true"
 
-k8s_version='1.29.9' # 1.26.3 / 1.28.0
+k8s_version='1.32.2' # 1.26.3 / 1.28.0
+RUNC_VERSION='1.2.5'
+CONTAINERD_VERSION='2.0.3'
 k8s_minor_version=$(echo $k8s_version | cut -d '.' -f 1-2)
 pod_cidr='10.244.0.0/16'
 service_cidr='10.96.0.0/16'
@@ -121,13 +123,13 @@ EOF
 # ----------------------  Containerd Install------------------------------------
 function containerd_install() {
 
-  RUNC_VERSION=v1.1.4
+
   if [ ! -e runc.amd64 ]; then
-    wget -c https://github.com/opencontainers/runc/releases/download/$RUNC_VERSION/runc.amd64
+    wget -c https://github.com/opencontainers/runc/releases/download/v${RUNC_VERSION}/runc.amd64
   fi
   sudo install -m 755 runc.amd64 /usr/local/sbin/runc
 
-  CONTAINERD_VERSION=1.7.0
+
   if [ ! -e containerd-$CONTAINERD_VERSION-linux-amd64.tar.gz ]; then
     wget -c https://github.com/containerd/containerd/releases/download/v$CONTAINERD_VERSION/containerd-$CONTAINERD_VERSION-linux-amd64.tar.gz
   fi
